@@ -6,6 +6,8 @@ import Navigation from './Navigation/navigation';
 import Category from './Category/Category';
 import Tag from './Tag/Tag';
 import TopMenu from './Navigation/TopMenu';
+import CreateCategory from './Category/Create';
+import CreateTag from './Tag/Create';
 
 /*
     <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -37,8 +39,9 @@ class Admin extends Component {
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                       <Route path='/categories' component={Category}/>
+                      <Route path='/category/create' component={CreateCategory}/>
                       <Route path='/tags' component={Tag}/>
-
+                      <Route path='/tag/create' component={CreateTag}/>
                       </div>
            </div>
            </div>

@@ -1,12 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Category = () => (
 
     <div class="row">
         <div class="page-header">
             <h1>Categories</h1>
-            <button class="au-btn au-btn-icon au-btn--green au-btn--small">
-                <i class="zmdi zmdi-plus"></i>add item</button>
+            <Link to="/category/create" class="au-btn au-btn-icon au-btn--green au-btn--small">
+                <i class="zmdi zmdi-plus"></i>add item</Link>
         </div>
 
         <div class="col-md-12">

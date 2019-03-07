@@ -55,3 +55,37 @@
 .menu-sidebar__content a:hover {
     font-size: 1.2em !important;
 }
+
+.main-content {
+    padding-top: 70px !important;
+}
+
+.form-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.custom-btn {
+    margin: 5px 10px;
+}
+
+.card-footer {
+    background-color: #FFF;
+    text-align: center;
+}
+
+.card-header {background: #232526;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+    
+}
+
+.card-header h1 {
+    color: white;
+}
+
+.custom-form {
+    margin: 0 auto;
+}
