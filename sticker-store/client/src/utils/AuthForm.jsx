@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class UniversalForm extends Component {
+class AuthForm extends Component {
     constructor(props) {
         super(props);
 
@@ -15,6 +15,7 @@ class UniversalForm extends Component {
         });
 
         this.state = obj;
+        
 
         this.change = this.change.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -24,9 +25,9 @@ class UniversalForm extends Component {
         let value = e.target.value;
         let data = {};
         data[name] = value;
-        console.log(value);
         this.setState(data);
     }
+
     onSubmit(e) {
         e.preventDefault();
         let data = {};
@@ -36,7 +37,8 @@ class UniversalForm extends Component {
         for (let field of fields) {
             data[field] = state[field];
         }
-        console.log(data);
+
+        this.props.sendData(data);
     }
 
     render() {
@@ -44,30 +46,34 @@ class UniversalForm extends Component {
             <React.Fragment>
 
                 <div className="row custom-form">
-                    <div className="col-lg-6 ">
-                        <div className="card">
+                    <div className="col-lg-12">
+                        <div className="card auth-card">
                             <div className="card-header">
                                 <h1>{this.props.title}</h1>
                             </div>
                             <div className="card-body card-block">
-                                <form onSubmit={this.onSubmit} encType="multipart/form-data" className="form-horizontal">
-
+                                <form onSubmit={this.onSubmit} className="form-horizontal auth-form">
+                                <Errors errors={this.props.errors}/>
                                     {
-                                        this.state.children.map((child, i) => (
-                                                <FormRow props={child.props} change={this.change} key={i} id={child.props.name + i} />
-                                        ))
+                                        this.state.children.map((child, i) => 
+                                            
+                                             (
+                                                <FormRow props={child.props} change={this.change} key={i} id={child.props.name + i}/>
+                                        )
+                                        )
                                     }
-                                    <div className="card-footer">
-                                        <button type="submit" className="btn btn-success btn-lg custom-btn">
+                                    <div class="auth-form-btn">
+                                        <button type="submit" className="btn btn-danger btn-lg custom-btn">
                                             Create
-                                        </button>
-                                        <button type="reset" className="btn btn-danger btn-lg custom-btn">
-                                            Reset
                                         </button>
                                     </div>
                                 </form>
                             </div>
+                            <div class="card-footer text-muted">
+                        You already have an account! <a href="/login">Login</a>
+                    </div>
                         </div>
+                       
                     </div>
                 </div>
             </React.Fragment>
@@ -76,18 +82,31 @@ class UniversalForm extends Component {
 }
 
 const FormRow = (props) => {
-    let onChangeEvent = props.change;
+    let { change: onChangeEvent} = props;
     let { type, name, title } = props.props;
+    
     return (
         <div className="row form-group form-item">
             <div className="col col-md-3">
                 <label htmlFor="text-input" className="form-control-label">{title}</label>
             </div>
             <div className="col-12 col-md-9">
-                <input type={type} id="text-input" name={name} placeholder={title} className="form-control" onChange={(e) => onChangeEvent(e, name)}/>
+                <input type={type} id="text-input" name={name} placeholder={title} className="form-control" onChange={(e) => onChangeEvent(e, name)} />
             </div>
         </div>
     )
 }
 
-export default UniversalForm;
+const Errors = (props) => {
+    let { errors } = props;
+
+    if(errors) {
+        return errors.map(err => (
+            <div class="alert alert-danger">{err}</div>
+        ))
+    }
+
+    return null;
+}
+
+export default AuthForm;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import UniversalForm from '../utils/UniversalForm';
+import UniversalForm from '../../../utils/UniversalForm';
 
 class CreateTag extends Component {
     render() {

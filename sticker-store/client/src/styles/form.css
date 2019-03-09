@@ -1,0 +1,51 @@
+
+body {
+    background: #12c2e9;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #f64f59, #c471ed, #12c2e9);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #f64f59, #c471ed, #12c2e9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.auth-card {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.auth-form {
+    background-color: white;
+}
+
+.auth-form .form-group{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+}
+
+.auth-form label {
+    text-align: left;
+}
+
+.auth-form input {
+    background-color: #E6E6E6;
+}
+
+.auth-form button {
+    width: 100%;
+    background-color: #1abc9c;
+    border-color: #1abc9c;
+    padding: 10px 0px;
+    font-size: 1.2em;
+    
+}
+
+ .card-header.auth-form{
+    background-color: #000;
+    color: #FFF;
+}
+
+.auth-form-btn {
+    width: 90%;
+    margin: 0 auto;
+}
+
