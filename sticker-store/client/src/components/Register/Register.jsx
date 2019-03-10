@@ -7,28 +7,40 @@ class Register extends Component {
         super(props);
 
         this.state = {
-            errors: null
+            errors: null,
+            doRerender: false
         }
         this.service = AuthService.signUp;
 
         this.onFormSubmit = this.onFormSubmit.bind(this);
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log(nextState);
+        return nextState.doRerender && nextState.doRerender !== this.state.doRerender;
+    }
+
      onFormSubmit(data) {
         this.service(data)
            .then(response => response.json())
            .then(data => {
+            console.log(data);
                if(data.errors) {
-                   this.setState({
+                   return this.setState({
                        errors: data.errors
+                       ,doRerender: true
                    })
                }
+
+               this.setState({doRerender: false})
+
+               
            })
            .catch(err => console.log(err))
     }
     
     render() {
-        
+        console.log('register');
         return (
             <React.Fragment>
 <AuthForm title="Sign Up" sendData={this.onFormSubmit} errors={this.state.errors}>

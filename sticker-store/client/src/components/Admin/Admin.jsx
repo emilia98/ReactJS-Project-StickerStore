@@ -29,6 +29,7 @@ class Admin extends Component {
         return (
             
             <div className="page-wrapper">
+            
                  <Router>
                  <React.Fragment>
                

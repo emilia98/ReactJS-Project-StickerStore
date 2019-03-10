@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { NotificationManager } from 'react-notifications';
+import { withRouter } from 'react-router-dom';
 
 class UniversalForm extends Component {
     constructor(props) {
@@ -7,6 +9,7 @@ class UniversalForm extends Component {
         let obj = {};
         obj.children = [];
         obj.fields = [];
+        obj.errors = [];
 
         React.Children.forEach(this.props.children, (child) => {
             obj[child.props.name] = '';
@@ -18,6 +21,8 @@ class UniversalForm extends Component {
 
         this.change = this.change.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+
+        this.sendData = this.sendData.bind(this);
     }
 
     change(e, name) {
@@ -25,6 +30,37 @@ class UniversalForm extends Component {
         let data = {};
         data[name] = value;
         this.setState(data);
+    }
+
+    sendData(data) {
+        this.props.service(data)
+        .then(response => {
+            console.log(response);
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            if(data.errors) {
+                return this.setState({
+                    errors: data.errors
+                })
+            }
+
+            if(data.hasError) {
+                return NotificationManager.error(data.msg)
+            }
+            
+            NotificationManager.success(data.msg);
+            this.props.history.push('/tags');
+
+            
+           
+        })
+        .catch(err => {
+            console.log(err);
+            
+            NotificationManager.error('Error')
+        })
     }
 
     onSubmit(e) {
@@ -36,9 +72,12 @@ class UniversalForm extends Component {
         for (let field of fields) {
             data[field] = state[field];
         }
+
+        this.sendData(data);
     }
 
     render() {
+        console.log(this.props);
         return (
             <React.Fragment>
 
@@ -50,7 +89,7 @@ class UniversalForm extends Component {
                             </div>
                             <div className="card-body card-block">
                                 <form onSubmit={this.onSubmit} encType="multipart/form-data" className="form-horizontal">
-
+                                <Errors errors={this.state.errors}/>
                                     {
                                         this.state.children.map((child, i) => {
                                             let { name } = child.props;
@@ -98,4 +137,17 @@ const FormRow = (props) => {
     )
 }
 
-export default UniversalForm;
+const Errors = (props) => {
+    console.log(props);
+    let { errors } = props;
+
+    if(errors) {
+        return errors.map(err => (
+            <div class="alert alert-danger-custom">{err}</div>
+        ))
+    }
+
+    return null;
+}
+
+export default withRouter(UniversalForm);
