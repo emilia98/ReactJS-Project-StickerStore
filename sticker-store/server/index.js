@@ -6,6 +6,7 @@ const port = config.port;
 const app = express();
 
 const authRouter = require('./routes/auth');
+const tagRouter = require('./routes/tag');
 
 require('./config/db')(config);
 
@@ -18,6 +19,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/auth', authRouter);
+app.use('/tag', tagRouter);
 
 app.listen(port, () => {
     console.log(`Server listening onn port ${port}...`);

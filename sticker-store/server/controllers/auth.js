@@ -3,6 +3,7 @@ module.exports = {
         let { email, username, password } = req.body;
         let errors = [];
 
+        console.log(req.body);
         errors = checkIfUndefined(email, 'Please, provide an email!', errors);
         errors = checkIfUndefined(username, 'Please, provide a username!', errors);
         errors = checkIfUndefined(password, 'Please, provide a password!', errors);
@@ -13,7 +14,7 @@ module.exports = {
             })
         }
 
-        
+        return res.json({hello: 'world'});
     }
 }
 
