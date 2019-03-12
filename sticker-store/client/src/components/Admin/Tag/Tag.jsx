@@ -1,45 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import withListAllService from '../../../hocs/admin/with-list-all-service';
+import TagService from '../../../services/TagService';
 
-const Tag = () => (
-
-    <div class="row">
-        <div class="page-header">
-            <h1>Tags</h1>
-            <Link to="/tag/create" class="au-btn au-btn-icon au-btn--green au-btn--small">
-                <i class="zmdi zmdi-plus"></i>Add New</Link>
-        </div>
-
-        <div class="col-md-12">
-            <div class="table-data__tool">
-                
-                <div class="table-data__tool-left">
-                <form class="form-header" action="" method="POST">
-                    <input class="au-input au-input--xl" type="text" name="search" placeholder="Search by Category" />
-                    <button class="au-btn--submit" type="submit">
-                        <i class="zmdi zmdi-search"></i>
-                    </button>
-                </form>
-                
-                   
-                </div>
-                <div class="table-data__tool-right">
-                <div class="rs-select2--light rs-select2--sm">
-                        <select class="js-select2" name="time">
-                            <option selected="selected">Today</option>
-                            <option value="">3 Days</option>
-                            <option value="">1 Week</option>
-                        </select>
-                        <div class="dropDownSelect2"></div>
-                    </div>
-                    <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
-                    <button class="au-btn-filter">
-                        <i class="zmdi zmdi-filter-list"></i>filters</button>
-                    </div>
-                </div>
-            </div>
-            <div class="table-responsive table-responsive-data2">
-                <table class="table table-data2">
+const Tag = (props) =>  {
+    let tags = props.data;
+    return (<table class="table table-data2">
                     <thead>
                         <tr>
                             <th>
@@ -48,26 +14,23 @@ const Tag = () => (
                                     <span class="au-checkmark"></span>
                                 </label>
                             </th>
-                            <th>Category Title</th>
-                            <th>Category SLug</th>
+                            <th>Title</th>
                             <th>Date</th>
                             <th>IsActive</th>
-                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            [1, 2, 3, 4].map((i) => <TagRow key={i} />)
+                            tags.map((tag) => <TagRow tag={tag} />)
                         }
                     </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-)
+                </table>)
+}
 
-const TagRow = (props) => (
-    <React.Fragment>
+const TagRow = (props) => {
+    let { tag } = props;
+    return (
+        <React.Fragment>
         <tr class="tr-shadow">
             <td>
                 <label class="au-checkbox">
@@ -75,19 +38,19 @@ const TagRow = (props) => (
                     <span class="au-checkmark"></span>
                 </label>
             </td>
-            <td>Category Title</td>
+            <td>{tag.title}</td>
+            <td>{tag.createdOn}</td>
             <td>
-                <span class="block-email">Slug</span>
-            </td>
-            <td>CreationDate</td>
-            <td>
-                <span class="table-label table-label-danger">isActive</span>
+                { tag.isActive ? 
+                <span class="table-label table-label-success">Active</span> :
+                <span class="table-label table-label-danger">Inactive</span>
+                }
             </td>
             <td>
                 <div class="table-data-feature">
-                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                    <Link to={'/edit/' + tag._id} class="item" data-toggle="tooltip" data-placement="top" title="Edit" >
                         <i class="zmdi zmdi-edit"></i>
-                    </button>
+                    </Link>
                     <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
                         <i class="zmdi zmdi-delete"></i>
                     </button>
@@ -96,6 +59,12 @@ const TagRow = (props) => (
         </tr>
         <tr class="spacer"></tr>
     </React.Fragment>
-)
+    )
+}
 
-export default Tag;
+const options = {
+    heading: 'Tags',
+    to: '/tag/create'
+}
+
+export default withListAllService(Tag, TagService.listAll, options);

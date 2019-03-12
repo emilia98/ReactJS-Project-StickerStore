@@ -21,6 +21,10 @@
     background: #fa4251;
 }
 
+.table-label-success {
+    background: #57b846;
+}
+
 .table-label{
     display: inline-block;
     line-height: 30px;
@@ -39,17 +43,11 @@
 
 .page-container {
     padding-left: 300px;
-    background: none !important;
+    background: #e5e5e5;
 }
 
 .menu-sidebar__content {
-    background: #9D50BB;
-    background: -webkit-linear-gradient(to bottom, #6E48AA, #9D50BB);
-    background: linear-gradient(to bottom, #6E48AA, #9D50BB);
-}
-
-.menu-sidebar__content a {
-    color: #FFF !important;
+    background: #fff;
 }
 
 .menu-sidebar__content a:hover {

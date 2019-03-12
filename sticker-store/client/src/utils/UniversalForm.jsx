@@ -10,9 +10,10 @@ class UniversalForm extends Component {
         obj.children = [];
         obj.fields = [];
         obj.errors = [];
+        obj.id = this.props.id;
 
         React.Children.forEach(this.props.children, (child) => {
-            obj[child.props.name] = '';
+            obj[child.props.name] = child.props.defaultValue ? child.props.defaultValue : "";
             obj.children.push(child);
             obj.fields.push(child.props.name);
         });
@@ -32,14 +33,12 @@ class UniversalForm extends Component {
         this.setState(data);
     }
 
-    sendData(data) {
-        this.props.service(data)
+    sendData(data, id) {
+        this.props.service(data, id)
         .then(response => {
-            console.log(response);
             return response.json();
         })
         .then(data => {
-            console.log(data);
             if(data.errors) {
                 return this.setState({
                     errors: data.errors
@@ -51,15 +50,12 @@ class UniversalForm extends Component {
             }
             
             NotificationManager.success(data.msg);
-            this.props.history.push('/tags');
-
-            
-           
+            this.props.history.push(this.props.redirectTo);
         })
         .catch(err => {
             console.log(err);
             
-            NotificationManager.error('Error')
+            NotificationManager.error('Error');
         })
     }
 
@@ -72,12 +68,12 @@ class UniversalForm extends Component {
         for (let field of fields) {
             data[field] = state[field];
         }
-
-        this.sendData(data);
+        
+        console.log(data);
+        this.sendData(data, this.state.id);
     }
 
     render() {
-        console.log(this.props);
         return (
             <React.Fragment>
 
@@ -95,9 +91,6 @@ class UniversalForm extends Component {
                                             let { name } = child.props;
                                             let defaultValue = this.state[name];
                                             
-                                            if(name === "slug") {
-                                                defaultValue = this.state.title.toLowerCase().replace(/\s+/g, '-')
-                                            }
                                             return (
                                                 <FormRow props={child.props} change={this.change} key={i} id={child.props.name + i} defaultValue={defaultValue}/>
                                         )
@@ -124,7 +117,8 @@ class UniversalForm extends Component {
 const FormRow = (props) => {
     let { change: onChangeEvent, defaultValue} = props;
     let { type, name, title } = props.props;
-    
+
+    console.log(defaultValue);
     return (
         <div className="row form-group form-item">
             <div className="col col-md-3">
@@ -138,7 +132,6 @@ const FormRow = (props) => {
 }
 
 const Errors = (props) => {
-    console.log(props);
     let { errors } = props;
 
     if(errors) {
@@ -146,7 +139,6 @@ const Errors = (props) => {
             <div class="alert alert-danger-custom">{err}</div>
         ))
     }
-
     return null;
 }
 

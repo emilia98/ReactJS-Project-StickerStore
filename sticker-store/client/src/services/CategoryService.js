@@ -1,4 +1,4 @@
-const api = 'http://localhost:8080/tag';
+const api = 'http://localhost:8080/category';
 const options = {
     method: 'post',
     headers: {
@@ -7,7 +7,7 @@ const options = {
     body: {}
 }
 
-class TagService {
+class CategoryService {
     static listAll() {
         return fetch(api + '/all', { method: 'get'});
     }
@@ -31,4 +31,4 @@ class TagService {
     }
 }
 
-export default TagService;
+export default CategoryService;
