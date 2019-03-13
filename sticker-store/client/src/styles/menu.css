@@ -3,9 +3,9 @@
     src: url("./KaushanScript-Regular.otf");
   }
 
-header {background: #1abc9c;
-}
-
+  header {
+    padding: 10px;
+  }
 #logo-area, header .icon  {
     display: inline-block;
     
@@ -109,7 +109,6 @@ header .icon  .icon-item:hover .text {
   
   #main {
     transition: margin-right .5s;
-    padding: 16px;
   }
   
   @media screen and (max-height: 450px) {

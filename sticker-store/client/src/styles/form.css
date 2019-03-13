@@ -22,14 +22,12 @@ body {
     text-align: left;
 }
 
-.auth-form input {
-    background-color: #E6E6E6;
-}
 
 .auth-form button {
     width: 100%;
-    background-color: #1abc9c;
-    border-color: #1abc9c;
+    color: #fff;
+    background-color: #bd2130;
+    border-color: #b21f2d;
     padding: 10px 0px;
     font-size: 1.2em;
     

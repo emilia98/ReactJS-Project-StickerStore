@@ -4,9 +4,10 @@ import logo from './logo.svg';
 import './App.css';
 import Home from './components/Home/Home';
 import Admin from './components/Admin/Admin.jsx';
-import Register from './components/Register/Register';
+import Register from './components/Auth/Register';
 
 import './styles/menu.css';
+import Login from './components/Auth/Login';
 
 class App extends Component {
   constructor(props) {
@@ -39,6 +40,7 @@ class App extends Component {
         <aside id="mySidenav" class={this.state.isSidebarOpened ? "active sidenav" : "sidenav"}>
         <button onClick={this.closeSidebar} class="closebtn">&times;</button>
         <Link to="/register">Register</Link>
+        <Link to="/login">Login</Link>
         
         <a href="#">About</a>
         <a href="#">Services</a>
@@ -80,9 +82,13 @@ class App extends Component {
 
     </header>
     
+    <div class="container-fluid">
     <Switch>
       <Route path="/register" component={Register} />
+      <Route path="/login" component={Login} />
     </Switch>
+    </div>
+    
 
 </div>
       </Fragment>
