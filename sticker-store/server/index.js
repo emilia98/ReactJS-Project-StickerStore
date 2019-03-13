@@ -10,6 +10,7 @@ const tagRouter = require('./routes/tag');
 const categoryRouter = require('./routes/category');
 
 require('./config/db')(config);
+require('./config/passport');
 
 app.use(bodyParser.json());
 app.use((req, res, next) => {

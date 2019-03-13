@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const encryption = requrie('../utils/encryption.js');
+const encryption = require('../utils/encryption.js');
 
 mongoose.Promise = global.Promise;
 
@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
     },
     isActive: {
         type: mongoose.SchemaTypes.Boolean,
-        default: false
+        default: true
     },
     roles: [{
         type: mongoose.Schema.Types.String,
