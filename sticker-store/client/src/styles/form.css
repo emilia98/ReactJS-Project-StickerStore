@@ -43,3 +43,6 @@ body {
     margin: 0 auto;
 }
 
+small.input-error {
+    color: #db5145 !important;
+}

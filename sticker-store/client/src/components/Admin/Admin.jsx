@@ -9,6 +9,7 @@ import TopMenu from './Navigation/TopMenu';
 import CreateCategory from './Category/Create';
 import CreateTag from './Tag/Create';
 import EditTag from './Tag/Edit';
+import CreateSticker from './Sticker/Create';
 
 /*
     <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -45,6 +46,7 @@ class Admin extends Component {
                       <Route path='/tags' component={Tag}/>
                       <Route path='/tag/create' component={CreateTag}/>
                       <Route path='/edit/:id' component={EditTag}/>
+                      <Route path='/sticker/create' component={CreateSticker}/>
                       </div>
            </div>
            </div>

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
+import './styles/form.css';
 import Home from './components/Home/Home';
 import Admin from './components/Admin/Admin.jsx';
 import Register from './components/Auth/Register';
