@@ -43,11 +43,7 @@
 
 .page-container {
     padding-left: 300px;
-    background: #e5e5e5;
-}
-
-.menu-sidebar__content {
-    background: #fff;
+    background: #ffffff;
 }
 
 .menu-sidebar__content a:hover {
@@ -91,4 +87,17 @@
 .alert-danger-custom {
     background-color: #D40A5C;
     color: white;
+}
+
+
+.menu-sidebar__content {
+    background-color: #262e36;
+}
+
+.navbar-sidebar li a{
+    color: white !important;
+}
+
+.user-data {
+    border: none;
 }

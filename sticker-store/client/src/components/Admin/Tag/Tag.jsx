@@ -1,43 +1,64 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import withListAllService from '../../../hocs/admin/with-list-all-service';
 import TagService from '../../../services/TagService';
+import { NotificationManager } from 'react-notifications';
 
 const Tag = (props) =>  {
     let tags = props.data;
-    return (<table class="table table-data2">
-                    <thead>
-                        <tr>
-                            <th>
-                                <label class="au-checkbox">
-                                    <input type="checkbox" />
-                                    <span class="au-checkmark"></span>
-                                </label>
-                            </th>
-                            <th>Title</th>
-                            <th>Date</th>
-                            <th>IsActive</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            tags.map((tag) => <TagRow tag={tag} />)
-                        }
-                    </tbody>
-                </table>)
+    return (
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>IsActive</th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    tags.map((tag) => <TagRow tag={tag} rerenderData={props.rerenderData} />)
+                }
+            </tbody>
+        </table>
+    )
 }
 
-const TagRow = (props) => {
-    let { tag } = props;
+class TagRow extends React.Component {
+    constructor(props) {
+        super(props);
+        this.changeStatus = this.changeStatus.bind(this);
+    }
+
+    changeStatus(e) {
+        let target = e.target;
+        let id = target.getAttribute('data-id');
+
+        if(id === null) {
+            id = target.parentElement.getAttribute('data-id');
+        }
+
+        TagService.changeStatus(id)
+        .then(response => response.json())
+        .then(data => {
+            if(data.hasError) {
+                return NotificationManager.error(data.msg);
+            }
+
+            NotificationManager.success(data.msg);
+            this.props.rerenderData();
+        })
+        .catch(err => {
+            console.log(err);
+            return NotificationManager.error('An error occurred while trying to change the status of a tag!');
+        })
+    }
+
+    render() {
+        let { tag } = this.props;
     return (
         <React.Fragment>
-        <tr class="tr-shadow">
-            <td>
-                <label class="au-checkbox">
-                    <input type="checkbox" />
-                    <span class="au-checkmark"></span>
-                </label>
-            </td>
+        <tr>
             <td>{tag.title}</td>
             <td>{tag.createdOn}</td>
             <td>
@@ -51,15 +72,15 @@ const TagRow = (props) => {
                     <Link to={'/edit/' + tag._id} class="item" data-toggle="tooltip" data-placement="top" title="Edit" >
                         <i class="zmdi zmdi-edit"></i>
                     </Link>
-                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" data-id={tag._id} onClick={this.changeStatus}>
                         <i class="zmdi zmdi-delete"></i>
                     </button>
                 </div>
             </td>
         </tr>
-        <tr class="spacer"></tr>
     </React.Fragment>
     )
+    }
 }
 
 const options = {

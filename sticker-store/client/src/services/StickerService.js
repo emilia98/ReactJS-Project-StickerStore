@@ -1,9 +1,9 @@
 const api = 'http://localhost:8080/sticker';
 const options = {
     method: 'post',
-    headers: {
+    /*headers: {
         "Content-Type": "application/json",
-    },
+    },*/
     body: {}
 }
 

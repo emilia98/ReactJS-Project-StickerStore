@@ -9,15 +9,30 @@ function withListAllService(Component, service, options) {
 
             this.state = {
                 data: [],
-                isLoading: false
+                isLoading: false,
+                status: false
             }
             this.service = service;
+            this.rerenderData = this.rerenderData.bind(this);
+            this.callService = this.callService.bind(this);
         }
 
         componentDidMount() {
             this.setState( {
                 isLoading: true
             })
+           this.callService();
+        }
+
+        componentDidUpdate(prevProps, prevState) {
+            if(prevState.status !== this.state.status) {
+                this.callService();
+                return true;
+            }
+            return false;
+        }
+
+        callService() {
             this.service()
             .then(response => response.json())
             .then(data => {
@@ -34,17 +49,22 @@ function withListAllService(Component, service, options) {
                 })
             })
             .catch(err => {
-                
                 console.log(err);
                 NotificationManager.error('An error occurred while trying to fetch all the tags');
                 this.setState( { isLoading: false })
                 return;
             })
         }
+
+        rerenderData() {
+            this.setState({
+                status: !this.state.status
+            });
+        }
+        
         render() {
-            console.log(options);
             return (
-                <div class="row">
+                <div class="row user-data">
         <div class="page-header">
             <h1>{options.heading}</h1>
             <Link to={options.to} class="au-btn au-btn-icon au-btn--green au-btn--small">
@@ -52,7 +72,7 @@ function withListAllService(Component, service, options) {
         </div>
 
         <div class="col-md-12">
-            <div class="table-data__tool">
+            <div class="table-data__tool ">
                 
                 <div class="table-data__tool-left">
                 <form class="form-header" action="" method="POST">
@@ -79,9 +99,9 @@ function withListAllService(Component, service, options) {
                     </div>
                 </div>
             </div>
-            <div class="table-responsive table-responsive-data2">
+            <div class="table-responsive table-responsive-data">
                {
-                   this.state.isLoading ? <h2>Loading...</h2> :<Component data={this.state.data}/>
+                   this.state.isLoading ? <h2>Loading...</h2> :<Component data={this.state.data} rerenderData={this.rerenderData}/>
                }
             </div>
         </div>

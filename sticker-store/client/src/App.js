@@ -53,8 +53,11 @@ class App extends Component {
 <header>
         <div class="icon">
                 <div class="icon-item">
-                        <span> <i class="fas fa-certificate"></i></span>
+                <Link to="/stickers">
+                <span> <i class="fas fa-certificate"></i></span>
                         <p class="text">Stickers</p>
+            </Link>
+                        
                     </div>
             
             <div class="icon-item">

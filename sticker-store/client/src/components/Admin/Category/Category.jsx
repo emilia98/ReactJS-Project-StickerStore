@@ -49,7 +49,7 @@ const Category = () => (
                                 </label>
                             </th>
                             <th>Category Title</th>
-                            <th>Category SLug</th>
+                            <th>Category Slug</th>
                             <th>Date</th>
                             <th>IsActive</th>
                             <th>Action</th>

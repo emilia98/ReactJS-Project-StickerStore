@@ -9,13 +9,22 @@ module.exports = {
 
         try {
             let category = await Category.create({title, slug});
-            console.log(category);
-
             res.json({msg: 'Successfully created a new category!'})
             
         } catch(err) {
             console.log(err);
             res.json({msg: 'An error occurred while trying to create a new category', hasError: true})
+        }
+    },
+    listAll: async (req, res) => {
+        try {
+            let categories = await Category.find();
+            console.log(categories);
+            
+            res.json({msg: 'Successfully listed all the categories!', data: categories});
+        } catch(err) {
+            console.log(err);
+            res.json({msg: 'An error occurred while trying to get all the categories', hasError: true});
         }
     }
 }
