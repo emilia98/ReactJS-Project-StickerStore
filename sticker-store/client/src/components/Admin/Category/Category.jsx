@@ -1,101 +1,97 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import withListAllService from '../../../hocs/admin/with-list-all-service';
+import CategoryService from '../../../services/CategoryService';
+import { NotificationManager } from 'react-notifications';
 
-const Category = () => (
+const Category = (props) => {
+    let categories = props.data;
+    
+    return (
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Category Title</th>
+                    <th>Category Slug</th>
+                    <th>Date</th>
+                    <th>IsActive</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    categories.map((category) => <CategoryRow category={category} rerenderData={props.rerenderData} />)
+                }
+            </tbody>
+        </table>
+    )
+}
 
-    <div class="row">
-        <div class="page-header">
-            <h1>Categories</h1>
-            <Link to="/category/create" class="au-btn au-btn-icon au-btn--green au-btn--small">
-                <i class="zmdi zmdi-plus"></i>add item</Link>
-        </div>
+class CategoryRow extends React.Component {
+    constructor(props) {
+        super(props);
+        this.changeStatus = this.changeStatus.bind(this);
+    }
 
-        <div class="col-md-12">
-            <div class="table-data__tool">
+    changeStatus(e) {
+        let target = e.target;
+        let id = target.getAttribute('data-id');
+
+        if (id === null) {
+            id = target.parentElement.getAttribute('data-id');
+        }
+
+        CategoryService.changeStatus(id)
+            .then(response => response.json())
+            .then(data => {
+                if (data.hasError) {
+                    return NotificationManager.error(data.msg);
+                }
                 
-                <div class="table-data__tool-left">
-                <form class="form-header" action="" method="POST">
-                    <input class="au-input au-input--xl" type="text" name="search" placeholder="Search by Category" />
-                    <button class="au-btn--submit" type="submit">
-                        <i class="zmdi zmdi-search"></i>
-                    </button>
-                </form>
-                
-                   
-                </div>
-                <div class="table-data__tool-right">
-                <div class="rs-select2--light rs-select2--sm">
-                        <select class="js-select2" name="time">
-                            <option selected="selected">Today</option>
-                            <option value="">3 Days</option>
-                            <option value="">1 Week</option>
-                        </select>
-                        <div class="dropDownSelect2"></div>
-                    </div>
-                    <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
-                    <button class="au-btn-filter">
-                        <i class="zmdi zmdi-filter-list"></i>filters</button>
-                    </div>
-                </div>
-            </div>
-            <div class="table-responsive table-responsive-data2">
-                <table class="table table-data2">
-                    <thead>
-                        <tr>
-                            <th>
-                                <label class="au-checkbox">
-                                    <input type="checkbox" />
-                                    <span class="au-checkmark"></span>
-                                </label>
-                            </th>
-                            <th>Category Title</th>
-                            <th>Category Slug</th>
-                            <th>Date</th>
-                            <th>IsActive</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            [1, 2, 3, 4].map((i) => <CategoryRow key={i} />)
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-)
+                console.log(data);
 
-const CategoryRow = (props) => (
-    <React.Fragment>
-        <tr class="tr-shadow">
+                NotificationManager.success(data.msg);
+                this.props.rerenderData();
+            })
+            .catch(err => {
+                console.log(err);
+                return NotificationManager.error('An error occurred while trying to change the status of a tag!');
+            })
+    }
+
+    render() {
+        let { category } = this.props;
+    return (
+        <React.Fragment>
+        <tr>
+            <td>{category.title}</td>
+            <td>{category.slug}</td>
+            <td>{category.createdOn}</td>
             <td>
-                <label class="au-checkbox">
-                    <input type="checkbox" />
-                    <span class="au-checkmark"></span>
-                </label>
-            </td>
-            <td>Category Title</td>
-            <td>
-                <span class="block-email">Slug</span>
-            </td>
-            <td>CreationDate</td>
-            <td>
-                <span class="table-label table-label-danger">isActive</span>
+                { category.isActive ? 
+                <span class="table-label table-label-success">Active</span> :
+                <span class="table-label table-label-danger">Inactive</span>
+                }
             </td>
             <td>
                 <div class="table-data-feature">
-                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                    <Link to={'/category/edit/' + category._id} class="item" data-toggle="tooltip" data-placement="top" title="Edit" >
                         <i class="zmdi zmdi-edit"></i>
-                    </button>
-                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                    </Link>
+                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" data-id={category._id} onClick={this.changeStatus}>
                         <i class="zmdi zmdi-delete"></i>
                     </button>
                 </div>
             </td>
         </tr>
-        <tr class="spacer"></tr>
     </React.Fragment>
-)
+    )
+    }
+}
 
-export default Category;
+const options = {
+    heading: 'Categories',
+    to: '/category/create'
+}
+
+export default withListAllService(Category, CategoryService.listAll, options);

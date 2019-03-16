@@ -10,7 +10,9 @@ import CreateCategory from './Category/Create';
 import CreateTag from './Tag/Create';
 import EditTag from './Tag/Edit';
 import CreateSticker from './Sticker/Create';
+import EditCategory from './Category/Edit';
 
+import { NotificationManager } from 'react-notifications';
 /*
     <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
 
@@ -27,6 +29,11 @@ import CreateSticker from './Sticker/Create';
     <link href="css/theme.css" rel="stylesheet" media="all">
 */
 class Admin extends Component {
+    componentDidCatch(err) {
+        console.log(err);
+
+        NotificationManager.error('Error');
+    }
     render() {
         return (
             
@@ -45,7 +52,8 @@ class Admin extends Component {
                       <Route path='/category/create' component={CreateCategory}/>
                       <Route path='/tags' component={Tag}/>
                       <Route path='/tag/create' component={CreateTag}/>
-                      <Route path='/edit/:id' component={EditTag}/>
+                      <Route path='/tag/edit/:id' component={EditTag}/>
+                      <Route path='/category/edit/:id' component={EditCategory}/>
                       <Route path='/sticker/create' component={CreateSticker}/>
                       </div>
            </div>

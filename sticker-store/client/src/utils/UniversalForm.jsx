@@ -46,7 +46,7 @@ class UniversalForm extends Component {
             }
 
             if(data.hasError) {
-                return NotificationManager.error(data.msg)
+                return NotificationManager.error(data.msg);
             }
             
             NotificationManager.success(data.msg);

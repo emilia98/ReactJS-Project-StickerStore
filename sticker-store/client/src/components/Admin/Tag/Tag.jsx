@@ -69,7 +69,7 @@ class TagRow extends React.Component {
             </td>
             <td>
                 <div class="table-data-feature">
-                    <Link to={'/edit/' + tag._id} class="item" data-toggle="tooltip" data-placement="top" title="Edit" >
+                    <Link to={'/tag/edit/' + tag._id} class="item" data-toggle="tooltip" data-placement="top" title="Edit" >
                         <i class="zmdi zmdi-edit"></i>
                     </Link>
                     <button class="item" data-toggle="tooltip" data-placement="top" title="Delete" data-id={tag._id} onClick={this.changeStatus}>

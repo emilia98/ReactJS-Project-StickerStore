@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import UniversalForm from '../../../utils/UniversalForm';
-import TagService from '../../../services/TagService';
+import CategoryService from '../../../services/CategoryService';
 import { NotificationManager } from 'react-notifications';
 
-class EditTag extends Component {
+class EditCategory extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             id: this.props.match.params.id,
             hasError: false,
-            tag: null,
+            category: null,
             isLoading: true
         }
 
-        this.service = TagService.editPost;
+        this.service = CategoryService.editPost;
     }
 
     componentDidMount() {
-        TagService.editGet(this.state.id)
+        CategoryService.editGet(this.state.id)
         .then(response => {
             if(!response.ok) {
                 throw Error("")
@@ -37,12 +37,12 @@ class EditTag extends Component {
             return this.setState({
                 hasError: false,
                 isLoading: false,
-                tag: data.tag
+                category: data.category
             })
         })
         .catch(err => {
             console.log(err);
-            NotificationManager.error('An error occurred while trying to get a tag!');
+            NotificationManager.error('An error occurred while trying to get a category!');
             this.setState({
                 hasError: true,
                 isLoading: false
@@ -57,15 +57,16 @@ class EditTag extends Component {
         }
 
         if(this.state.hasError) {
-            return null
+            return null;
         }
         // console.log(this.state);
         return (
-            <UniversalForm title="Edit Tag" service={this.service} id={this.state.id} redirectTo='/tags'>
-              <input type="text" name="title" title="Title" defaultValue={this.state.tag.title}/>
+            <UniversalForm title="Edit Category" service={this.service} id={this.state.id} redirectTo='/categories'>
+              <input type="text" name="title" title="Title"  defaultValue={this.state.category.title}/>
+                <input type="text" name="slug" title="Slug" defaultValue={this.state.category.slug}/>
             </UniversalForm>
         )
     }
 }
 
-export default EditTag;
+export default EditCategory;

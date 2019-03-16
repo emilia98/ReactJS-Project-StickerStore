@@ -26,7 +26,31 @@ module.exports = {
             console.log(err);
             res.json({msg: 'An error occurred while trying to get all the categories', hasError: true});
         }
-    }
+    },
+    editGet: async (req, res) => {
+        let { id } = req.params;
+        let category = null;
+
+        if(!id) {
+            return res.json({ msg: 'Please, provide an id!', hasError: true});
+        }
+
+        try {
+            category = await Category.findById(id);
+        } catch(err) {
+            console.log(err);
+            return res.json({ msg: 'An error occurred while trying to get a category!', hasError: true});
+        }
+
+        if(!category) {
+            return res.json({ msg: 'This category does not exist!', hasError: true});
+        }
+
+        res.json({
+            msg: 'Here is the category you have requested!',
+            category
+        });
+    },
 }
 
 
