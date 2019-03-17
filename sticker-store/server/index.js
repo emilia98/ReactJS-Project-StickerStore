@@ -32,6 +32,7 @@ app.use('/auth', authRouter);
 app.use('/tag', tagRouter);
 app.use('/category', categoryRouter);
 app.use('/sticker', require('./routes/sticker'));
+app.use('/user', require('./routes/user'));
 
 app.listen(port, () => {
     console.log(`Server listening onn port ${port}...`);

@@ -67,8 +67,10 @@ function withListAllService(Component, service, options) {
                 <div class="row user-data">
         <div class="page-header">
             <h1>{options.heading}</h1>
+            {options.missingBtn ? null : 
             <Link to={options.to} class="au-btn au-btn-icon au-btn--green au-btn--small">
                 <i class="zmdi zmdi-plus"></i>Add New</Link>
+                }
         </div>
 
         <div class="col-md-12">

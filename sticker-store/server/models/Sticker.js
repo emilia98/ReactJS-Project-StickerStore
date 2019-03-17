@@ -18,6 +18,10 @@ const stickerSchema = new mongoose.Schema({
         type: mongoose.SchemaTypes.Number,
         default: 0
     },
+    mainImg: {
+        type: mongoose.SchemaTypes.String,
+        default: 'http://saveabandonedbabies.org/wp-content/uploads/2015/08/default.png'
+    },
     images: [{
             type: mongoose.SchemaTypes.String,
             default: []

@@ -101,3 +101,9 @@
 .user-data {
     border: none;
 }
+
+.badge {
+    margin-right: 5px;
+font-size: 1em;
+margin-bottom: 5px;
+}

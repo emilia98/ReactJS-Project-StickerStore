@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema({
         type: mongoose.SchemaTypes.String,
         required: true,
     },
+    createdOn: {
+        type: mongoose.SchemaTypes.Date,
+        default: Date.now
+    },
     isActive: {
         type: mongoose.SchemaTypes.Boolean,
         default: true
@@ -60,8 +64,7 @@ User.seedAdminUser = async () => {
     try {
         let user = await User.create({
             username: 'admin',
-            firstName: 'Admin',
-            lastName: 'Admin',
+            email: 'admin@abv.bg',
             salt,
             hashedPass,
             roles: ['Admin']

@@ -79,9 +79,9 @@ class Select extends React.Component {
     }
 
     return (
-        <select name="categories" multiple="true" class="form-control"  onChange={this.onSelect}>
+        <select name="categories" multiple={true} className="form-control"  onChange={this.onSelect}>
         {categories.map(category => (
-            <option value={category._id}>{category.title}</option>
+            <option value={category._id} key={category._id}>{category.title}</option>
         ))}
         </select>
     )

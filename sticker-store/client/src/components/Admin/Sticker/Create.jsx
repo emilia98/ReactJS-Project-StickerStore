@@ -16,10 +16,12 @@ class CreateSticker extends Component {
             images: "",
             title: "",
             categories: [],
+            tags: [],
             price: "",
             qty: "",
             description: "",
-            doRerender: false
+            doRerender: false,
+            mainImg: ""
         }
 
         this.onSubmit = this.onSubmit.bind(this);
@@ -35,11 +37,14 @@ class CreateSticker extends Component {
         e.preventDefault();
 
         let formData = new FormData();
-        
+
+
+        formData.append("mainImg", this.state.mainImg[0])
         formData.append("title", this.state.title);
         formData.append("price", this.state.price);
         formData.append("qty", this.state.qty);
         formData.append("description", this.state.description);
+        formData.append('tags', this.state.tags);
       
         let categories = this.state.categories;
 
@@ -59,13 +64,20 @@ class CreateSticker extends Component {
         body: formData
     })
         .then(response => {
-            console.log(response);
             return response.json();
         })
         .then(data => {
+            console.log(data);
+            if(data.errors && data.errors.length > 0) {
+                return this.setState({
+                    errors: data.errors
+                })
+            }
             if(data.hasError) {
                 return NotificationManager.error(data.msg);
             } 
+
+           // console.log(data);
 
             NotificationManager.success(data.msg);
             this.props.history.push('/admin');
@@ -94,11 +106,13 @@ class CreateSticker extends Component {
                             <strong>Basic Form</strong> Elements
                                     </div>
                         <div class="card-body card-block">
-                            <form onSubmit={this.onSubmit} enctype="multipart/form-data" class="form-horizontal">
-                                <FileInput name="images" ext="image/png, image/jpeg" multiple="true" getNewValue={this.getNewValue} />
+                            <form onSubmit={this.onSubmit} encType="multipart/form-data" class="form-horizontal">
+                            <FileInput name="mainImg" ext="image/png, image/jpeg" multiple={false} getNewValue={this.getNewValue} />
+                                <FileInput name="images" ext="image/png, image/jpeg" multiple={true} getNewValue={this.getNewValue} />
                                 <TextInput type="text" name="title" label="Title" getNewValue={this.getNewValue} placeholder="React Sticker"/>
                                 <TextInput type="text" name="price" label="Price per Unit" getNewValue={this.getNewValue} placeholder="0.40"/>
                                 <TextInput type="text" name="qty" label="Quantity" getNewValue={this.getNewValue} placeholder="10"/>
+                                <TextInput type="text" name="tags" label="Tags" getNewValue={this.getNewValue} placeholder="cats, animals" showLabels={true}/>                           
                                 <TextInput isTextarea={true} name="description" label="Description" getNewValue={this.getNewValue} placeholder="Type the description here"/>
                                 <CategoryList getNewValue={this.getNewValue}/>
                                 <button type="submit" class="btn btn-primary btn-sm">
@@ -113,6 +127,10 @@ class CreateSticker extends Component {
     }
 }
 
+/*
+validator => from frontend
+error =>from backend
+*/
 
 
 

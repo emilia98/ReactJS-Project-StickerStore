@@ -35,11 +35,11 @@ class FileInput extends Component {
         return (
             <div class="row form-group">
             <div class="col col-md-3">
-                <label for="file-multiple-input" class=" form-control-label">Multiple File input</label>
+                <label htmlFor="file-multiple-input" class=" form-control-label">Multiple File input</label>
             </div>
             <div class="col-12 col-md-9">
             <input type="file" name={this.props.name} accept={this.props.ext} multiple={this.props.multiple} 
-            onChange={(e) => this.handleOnChange(e, "images")} />
+            onChange={(e) => this.handleOnChange(e, this.props.name)} />
             <ErrorMsg hasError={this.state.hasError} msg="Files should be .png or .jpeg/.jpg"/>
             </div>
         </div>
