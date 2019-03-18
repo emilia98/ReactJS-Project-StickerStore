@@ -1,0 +1,11 @@
+image (main)
+price
+title
+like/dislike
+
+image
+
+
+PRI DOBAVQNE NA PRODUCT
+counter++ counter--
+kato shte se otrazqva v state-a

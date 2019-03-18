@@ -1,0 +1,16 @@
+1) Component Did Mount => vzemame vsichki zapisi
+2) zapisvame v state-a vzetite danni
+3) OnClick na vseki checkbox (onSelect) => vzemame categoryqta po id i sravnqvame categoriite na vseki item
+4) Pri search => po syshtiq nachin, samo che proverqvame
+
+1) Component Did Mount => vzemame vsichki zapisi
+2) zapisvame v state-ta vzetite danni
+3) onClick na checkbox-a promenq state kato pazim izbranite categorii nqkude
+4) componentDidUpdate / shouldComponentUpgrade
+pravim zaqvka i vzemame neobhodimite danni
+
+
+Rerender 
+pri like/dislike na product
+
+shte promenqme samo komponent-a, koito pazi produkta
