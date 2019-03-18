@@ -9,6 +9,7 @@ import Register from './components/Auth/Register';
 
 import './styles/menu.css';
 import Login from './components/Auth/Login';
+import Stickers from './components/Stickers/Stickers';
 
 class App extends Component {
   constructor(props) {
@@ -90,6 +91,7 @@ class App extends Component {
     <Switch>
       <Route path="/register" component={Register} />
       <Route path="/login" component={Login} />
+      <Route path='/stickers' component={Stickers} />
     </Switch>
     </div>
     

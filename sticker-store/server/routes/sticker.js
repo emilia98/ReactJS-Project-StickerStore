@@ -25,6 +25,7 @@ let storage = multer.diskStorage({
 
 let upload = multer({storage: storage}).any();
 
+router.get('/all', stickerController.getAll);
 router.post('/create', upload, stickerController.create);
 
 module.exports=  router;

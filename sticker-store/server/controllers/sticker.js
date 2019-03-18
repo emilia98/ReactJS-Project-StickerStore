@@ -4,6 +4,17 @@ const Category = require('../models/Category');
 const Tag = require('../models/Tag');
 
 module.exports = {
+    getAll: async(req, res) => {
+
+        try {
+            let stickers = await Sticker.find();
+
+            res.json({data: stickers, msg: 'Successfully received all the stickers'});
+        } catch(err) {
+            console.log(err);
+            res.json({ msg: 'An error occurred while tring to get all the stickers!', hasError: true})
+        }
+    },
     create: async (req, res) => {
         let files = req.files;
         let mainImg = files.filter(i => i.fieldname === 'mainImg');
