@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import './index.css';
 import './styles/form.css';
 import App from './App';
@@ -10,15 +12,13 @@ import { NotificationContainer} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import Admin from './components/Admin/Admin';
 
+
+
 ReactDOM.render(
     <React.Fragment>
         <NotificationContainer />
-
         <BrowserRouter>
-    
-    <Switch>
-    
-          
+        <Switch>
           <Route path='/admin' component={Admin} />
           <Route path="/" component={App} />
         </Switch>

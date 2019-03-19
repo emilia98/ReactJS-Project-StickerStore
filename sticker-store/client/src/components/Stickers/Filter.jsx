@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { NotificationManager } from 'react-notifications';
 import { Link } from 'react-router-dom';
-import '../../styles/stickers.css';
+import '../../styles/css/style.css';
+
 
 class Filter extends Component {
     constructor(props) {
@@ -9,105 +10,143 @@ class Filter extends Component {
 
         this.state = {
             stickers: [],
-            isLoading: true
-        }
-    }
+			isLoading: true,
+			isOpened: false,
+			query: {
+				searchByTitle: '',
+				order: null
+			},
+			rerender: false
+		}
 
+		
+		this.closeFilters = this.closeFilters.bind(this);
+		this.openFilters = this.openFilters.bind(this);
+		this.handleOnChange = this.handleOnChange.bind(this);
+	}
+	
+	shouldComponentUpdate(prevProps, prevState) {
+		console.log(prevState);
+		return prevState.rerender !== this.state.rerender;
+	}
+
+	handleOnChange(e) {
+		let name = e.target.name;
+		let value = e.target.value;
+		let query = this.state.query;
+
+
+	   if(this.state.query[name] !== undefined) {
+		   query[name] = value;
+		   this.setState({query})
+	   }
+
+
+		
+	}
+	
+
+	closeFilters() {
+		this.setState({ isOpened: false, rerender: !this.state.rerender});
+	}
+
+	openFilters() {
+		this.setState({ isOpened: true, rerender: !this.state.rerender});
+	}
+
+	
     render() {
+		console.log(this.state);
         return (
-            <main class="cd-main-content">
-		<div class="cd-tab-filter-wrapper">
-			<div class="cd-tab-filter">
-				<ul class="cd-filters">
-					<li class="placeholder"> 
-						<a data-type="all" href="#0">All</a> 
-					</li> 
-					<li class="filter"><a class="selected" href="#0" data-type="all">All</a></li>
-					<li class="filter" data-filter=".color-1"><a href="#0" data-type="color-1">Color 1</a></li>
-					<li class="filter" data-filter=".color-2"><a href="#0" data-type="color-2">Color 2</a></li>
-				</ul>
-			</div>
-		</div>
-
-		<section class="cd-gallery">
 			
-			<div class="cd-fail-message">No results found</div>
-		</section> 
-
-		<div class="cd-filter">
-			<form>
-				<div class="cd-filter-block">
-					<h4>Search</h4>
-					
-					<div class="cd-filter-content">
-						<input type="search" placeholder="Try color-1..." />
+	<Fragment>
+			<div className={this.state.isOpened ? "cd-filter filter-is-visible" : "cd-filter"} >
+				<form>
+					<div className="cd-filter-block">
+						<h4>Search by Sticker Name</h4>
+						
+						<div className="cd-filter-content">
+							<input type="search" name="searchByTitle" placeholder="By title" onChange={this.handleOnChange}/>
+						</div>
 					</div>
-				</div>
+	
+					<div className="cd-filter-block">
+						<h4>Check boxes</h4>
+	
+						<ul className="cd-filter-content cd-filters list">
+							<li>
+								<input className="filter" data-filter=".check1" type="checkbox" id="checkbox1" />
+								<label className="checkbox-label" for="checkbox1">Option 1</label>
+							</li>
+	
+							<li>
+								<input className="filter" data-filter=".check2" type="checkbox" id="checkbox2" />
+								<label className="checkbox-label" for="checkbox2">Option 2</label>
+							</li>
+	
+							<li>
+								<input className="filter" data-filter=".check3" type="checkbox" id="checkbox3" />
+								<label className="checkbox-label" for="checkbox3">Option 3</label>
+							</li><li>
+								<input className="filter" data-filter=".check3" type="checkbox" id="checkbox3" />
+								<label className="checkbox-label" for="checkbox3">Option 3</label>
+							</li>
+							<li>
+								<input className="filter" data-filter=".check3" type="checkbox" id="checkbox3" />
+								<label className="checkbox-label" for="checkbox3">Option 3</label>
+							</li>
+						</ul>
+					</div>
+	
+					<div className="cd-filter-block">
+						<h4>Order By</h4>
+						
+						<div className="cd-filter-content">
+							<div className="cd-select cd-filters">
+								<select className="filter" name="order" id="selectThis" onChange={this.handleOnChange}>
+								<option value="date">Date Added</option>
+									<option value="name-asc">Name (A-Z)</option>
+									
+									<option value="name-desc">Name (Z-A)</option>
+									<option value="price-asc">Price (lowest first)</option>
+									<option value="price-desc">Price (highest first)</option>
+									
+								</select>
+							</div>
+						</div>
+					</div>
+	
+					<div className="cd-filter-block">
+						<h4>Radio buttons</h4>
+	
+						<ul className="cd-filter-content cd-filters list">
+							<li>
+								<input className="filter" data-filter="" type="radio" name="radioButton" id="radio1" checked />
+								<label className="radio-label" for="radio1">All</label>
+							</li>
+	
+							<li>
+								<input className="filter" data-filter=".radio2" type="radio" name="radioButton" id="radio2" />
+								<label className="radio-label" for="radio2">Choice 2</label>
+							</li>
+	
+							<li>
+								<input className="filter" data-filter=".radio3" type="radio" name="radioButton" id="radio3" />
+								<label className="radio-label" for="radio3">Choice 3</label>
+							</li>
+						</ul>
+					</div>
 
-				<div class="cd-filter-block">
-					<h4>Check boxes</h4>
-
-					<ul class="cd-filter-content cd-filters list">
-						<li>
-							<input class="filter" data-filter=".check1" type="checkbox" id="checkbox1" />
-			    			<label class="checkbox-label" for="checkbox1">Option 1</label>
-						</li>
-
-						<li>
-							<input class="filter" data-filter=".check2" type="checkbox" id="checkbox2" />
-							<label class="checkbox-label" for="checkbox2">Option 2</label>
-						</li>
-
-						<li>
-							<input class="filter" data-filter=".check3" type="checkbox" id="checkbox3" />
-							<label class="checkbox-label" for="checkbox3">Option 3</label>
-						</li>
-					</ul> 
-				</div> 
-
-				<div class="cd-filter-block">
-					<h4>Select</h4>
-					
-					<div class="cd-filter-content">
-						<div class="cd-select cd-filters">
-							<select class="filter" name="selectThis" id="selectThis">
-								<option value="">Choose an option</option>
-								<option value=".option1">Option 1</option>
-								<option value=".option2">Option 2</option>
-								<option value=".option3">Option 3</option>
-								<option value=".option4">Option 4</option>
-							</select>
-						</div> 
-					</div> 
-				</div> 
-
-				<div class="cd-filter-block">
-					<h4>Radio buttons</h4>
-
-					<ul class="cd-filter-content cd-filters list">
-						<li>
-							<input class="filter" data-filter="" type="radio" name="radioButton" id="radio1" checked />
-							<label class="radio-label" for="radio1">All</label>
-						</li>
-
-						<li>
-							<input class="filter" data-filter=".radio2" type="radio" name="radioButton" id="radio2" />
-							<label class="radio-label" for="radio2">Choice 2</label>
-						</li>
-
-						<li>
-							<input class="filter" data-filter=".radio3" type="radio" name="radioButton" id="radio3" />
-							<label class="radio-label" for="radio3">Choice 3</label>
-						</li>
-					</ul>
-				</div> 
-			</form>
-
-			<a href="#0" class="cd-close">Close</a>
-		</div>
-
-		<a href="#0" class="cd-filter-trigger">Filters</a>
-	</main>
+					<div>
+						<button className="btn filter-btn">Submit</button>
+						</div>
+				</form>
+	
+				<button className="cd-close" onClick={this.closeFilters}>Close</button>
+			</div> 
+	
+			<button className="cd-filter-trigger" onClick={this.openFilters}>Filters</button>
+			</Fragment>
         )
     }
 }

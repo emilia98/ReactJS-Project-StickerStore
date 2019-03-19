@@ -3,6 +3,8 @@ import AuthForm from '../../utils/AuthForm';
 import AuthService from '../../services/AuthService';
 import { NotificationManager } from 'react-notifications';
 import { withRouter} from 'react-router-dom';
+import * as actions from '../../store/actions/index';
+import { connect } from 'react-redux';
 
 class Login extends Component {
     constructor(props) {
@@ -62,8 +64,13 @@ class Login extends Component {
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        onAuth: (username, password) => dispatch(actions.auth(username, password))
+    }
+}
 
 function validateData(data) {
     
 }
-export default withRouter(Login);
+export default connect(null, mapDispatchToProps)(withRouter(Login));

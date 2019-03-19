@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { NotificationManager } from 'react-notifications';
 import { Link } from 'react-router-dom';
 import '../../styles/stickers.css';
-import '../../styles/css/filters.css';
 import Filter from './Filter';
 
 class Stickers extends Component {
@@ -40,15 +39,13 @@ class Stickers extends Component {
         console.log(this.state);
        
        return (
-           
-        <div className="row parent">
+        <main class="cd-main-content">
         <Filter />
-        <div className="col-md-9 col-lg-9" id="results">
-        <div className="row">
-         {
+        <div className="row results">
+        {
              this.state.stickers.map(s => {
         return (
-            <div className="col-md-3">
+            <div className="col-md-4">
                 <div className="card">
                 <Link className="card-img"  to={`/sticker/details/${s._id}`}>
                     <img className="card-img-top" src={s.mainImg} alt="Card image cap" />
@@ -75,10 +72,8 @@ class Stickers extends Component {
 })
 }
         </div>
-        </div>
-        </div>
         
-
+        </main> 
 
        ) 
 }

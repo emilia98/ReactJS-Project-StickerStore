@@ -9,25 +9,20 @@ Primary style
   box-sizing: border-box;
 }
 
-html {
-  font-size: 62.5%;
-}
-
-html * {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  font-size: 1.6rem;
-  font-family: "Open Sans", sans-serif;
-  color: #331d35;
-  background-color: #e7e7e7;
-}
-
 a {
   color: #41307c;
   text-decoration: none;
+}
+
+.cd-filter-trigger {
+  font-family: "Open Sans", sans-serif;
+
+}
+.cd-filter {
+    font-family: "Open Sans", sans-serif;
+    color: #331d35;
+    background-color: #e7e7e7;
+  font-size: 16px;
 }
 
 /* -------------------------------- 
@@ -637,4 +632,56 @@ xcustom form elements
   .cd-filter-block .cd-select::after {
     display: none;
   }
+}
+
+.container-fluid{
+  padding: 0;
+}
+
+*, *::after, *::before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+ol, ul {
+	list-style: none;
+}
+html * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+
+.cd-filter-block > *, .cd-filter-block input[type="search"], label, select{
+  font-size: 1em !important;
+}
+
+
+.cd-filter-block .list li {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+
+}
+
+.cd-filter-block .list li > *{
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.filter-btn {
+  width: 100%;
+  background-color: #41307c;
+  color: white;
+}
+
+.cd-filter ul{height:200px; width:100%;}
+.cd-filter ul{overflow:hidden; overflow-y:auto;}
+
+.results {
+  position: absolute;
+top: 0;
+left: 25%;
 }
