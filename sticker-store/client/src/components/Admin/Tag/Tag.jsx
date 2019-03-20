@@ -39,7 +39,10 @@ class TagRow extends React.Component {
         }
 
         TagService.changeStatus(id)
-        .then(response => response.json())
+        .then(response => {
+            console.log(response);
+            return response.json()
+        })
         .then(data => {
             if(data.hasError) {
                 return NotificationManager.error(data.msg);

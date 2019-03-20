@@ -3,13 +3,16 @@ const options = {
     method: 'post',
     headers: {
         "Content-Type": "application/json",
+        "Authorization": "Bearer " + 'blqhnlq'
     },
     body: {}
 }
 
 class TagService {
     static listAll() {
-        return fetch(api + '/all', { method: 'get'});
+        return fetch(api + '/all', {
+            headers: {"Authorization" : `Bearer ${'tokenhere'}`}
+        });
     }
 
     static create(data) {
@@ -18,6 +21,7 @@ class TagService {
     }
 
     static editGet(id) {
+        
         return fetch(api + '/edit/' + id, { method: 'get'});
     }
 

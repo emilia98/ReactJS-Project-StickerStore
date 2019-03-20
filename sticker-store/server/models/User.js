@@ -59,15 +59,15 @@ User.seedAdminUser = async () => {
     }
 
     let salt = encryption.generateSalt();
-    let hashedPass = encryption.generateHashedPassword(salt, 'admin');
+    let hashedPassword = encryption.generateHashedPassword('admin', salt);
 
     try {
         let user = await User.create({
             username: 'admin',
             email: 'admin@abv.bg',
             salt,
-            hashedPass,
-            roles: ['Admin']
+            hashedPassword,
+            roles: ['Admin', 'User']
         });
     } catch (err) {
         return console.log(err);

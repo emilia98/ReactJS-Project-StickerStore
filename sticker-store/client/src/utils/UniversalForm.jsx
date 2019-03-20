@@ -36,6 +36,7 @@ class UniversalForm extends Component {
     sendData(data, id) {
         this.props.service(data, id)
         .then(response => {
+            console.log(response);
             return response.json();
         })
         .then(data => {

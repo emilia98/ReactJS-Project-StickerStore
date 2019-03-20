@@ -69,7 +69,7 @@ module.exports = {
         let result = null;
 
         try {
-            result = await User.create({ username, email, hashedPassword, salt});
+            result = await User.create({ username, email, hashedPassword, salt, roles: ['User']});
             console.log(result);
         } catch(err) {
             console.log(err);
@@ -105,9 +105,6 @@ module.exports = {
                 })
             }
 
-            console.log('User = ' + user);
-            console.log(info);
-
             if(!user) {
                 return res.json({
                     msg: info.message,
@@ -127,6 +124,7 @@ module.exports = {
                 return res.json({
                     username: user.username,
                     token: token,
+                    isAdmin: user.roles.indexOf('Admin') > -1,
                     msg: 'Successfully sign in!'
                 });
             })

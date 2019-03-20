@@ -6,6 +6,7 @@ import './styles/form.css';
 import Home from './components/Home/Home';
 import Admin from './components/Admin/Admin.jsx';
 import Register from './components/Auth/Register';
+import PublicRoute from './routes/PublicRoute';
 
 import './styles/menu.css';
 import Login from './components/Auth/Login';
@@ -39,32 +40,33 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        <aside id="mySidenav" class={this.state.isSidebarOpened ? "active sidenav" : "sidenav"}>
-        <button onClick={this.closeSidebar} class="closebtn">&times;</button>
+        <aside id="mySidenav" className={this.state.isSidebarOpened ? "active sidenav" : "sidenav"}>
+        <button onClick={this.closeSidebar} className="closebtn">&times;</button>
+        {sessionStorage.getItem('user') ? <p className="text-center">Welcome back, {JSON.parse(sessionStorage.getItem('user')).username}</p> : null}
         <Link to="/register">Register</Link>
         <Link to="/login">Login</Link>
         
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Clients</a>
-        <a href="#">Contact</a>
+        <a href="#">Favourites</a>
+        <a href="#">Profile</a>
+        <a href="#">Orders</a>
+        <a href="#">LogOut</a>
       </aside>
 
-<div id="main" class={this.state.isSidebarOpened ? "active" : ""}>
+<div id="main" className={this.state.isSidebarOpened ? "active" : ""}>
 <header>
-        <div class="icon">
-                <div class="icon-item">
+        <div className="icon">
+                <div className="icon-item">
                 <Link to="/stickers">
-                <span> <i class="fas fa-certificate"></i></span>
-                        <p class="text">Stickers</p>
+                <span> <i className="fas fa-certificate"></i></span>
+                        <p className="text">Stickers</p>
             </Link>
                         
                     </div>
             
-            <div class="icon-item">
+            <div className="icon-item">
             <Link to="/admin">
-            <span> <i class="fas fa-tachometer-alt"></i></span>
-                    <p class="text">Admin</p>
+            <span> <i className="fas fa-tachometer-alt"></i></span>
+                    <p className="text">Admin</p>
             </Link>
                     
                 </div>
@@ -74,23 +76,24 @@ class App extends Component {
 
             <h2>Stickers Store</h2>
         </div>
-        <div class="icon right-align">
-                <div class="icon-item" onClick={this.openSidebar}>
-                        <span> <i class="far fa-user"></i></span>
-                        <p class="text">User</p>
+        <div className="icon right-align">
+                <div className="icon-item" onClick={this.openSidebar}>
+                        <span> <i className="far fa-user"></i></span>
+                        <p className="text">User</p>
                     </div>
-                    <div class="icon-item">
-                            <span><i class="fas fa-shopping-basket"></i></span>
-                            <p class="text">User</p>
+                    <div className="icon-item">
+                            <span><i className="fas fa-shopping-basket"></i></span>
+                            <p className="text">User</p>
                         </div>
         </div>
 
     </header>
     
-    <div class="container-fluid">
+    <div className="container-fluid">
     <Switch>
-      <Route path="/register" component={Register} />
-      <Route path="/login" component={Login} />
+
+      <PublicRoute path="/register" component={Register} />
+      <PublicRoute path="/login" component={Login} />
       <Route path='/stickers' component={Stickers} />
     </Switch>
     </div>
@@ -102,9 +105,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;
-
-/*
- 
-*/

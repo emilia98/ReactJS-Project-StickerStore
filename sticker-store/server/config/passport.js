@@ -15,6 +15,8 @@ passport.use(new LocalStrategy(
             return done(err);
         }
 
+        console.log(user);
+
         if(!user) return done(null, null, { message: 'User with this username does not exist!'});
 
         if(!user.authenticate(password)) return done(null, false, { message: 'Incorrect password'});

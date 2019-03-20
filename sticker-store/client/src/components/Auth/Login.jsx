@@ -27,7 +27,6 @@ class Login extends Component {
         this.service(data)
            .then(response => response.json())
            .then(data => {
-            console.log(data);
                if(data.errors) {
                    return this.setState({
                        errors: data.errors
@@ -39,11 +38,12 @@ class Login extends Component {
                    return NotificationManager.error(data.msg);
                }
 
-               
-               
-
                this.setState({doRerender: false}, () => {
                 NotificationManager.success(data.msg);
+                sessionStorage.setItem('user', JSON.stringify({
+                    authToken: data.token,
+                    username: data.username
+                }));
                 this.props.history.push('/');
                })
                
@@ -73,4 +73,4 @@ const mapDispatchToProps = dispatch => {
 function validateData(data) {
     
 }
-export default connect(null, mapDispatchToProps)(withRouter(Login));
+export default withRouter(Login);
