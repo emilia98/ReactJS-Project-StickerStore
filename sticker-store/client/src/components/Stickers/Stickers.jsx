@@ -15,7 +15,7 @@ class Stickers extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:8080/sticker/all')
+        fetch('http://localhost:8080/sticker/active')
         .then(response => response.json())
         .then(data => {
             console.log(data);

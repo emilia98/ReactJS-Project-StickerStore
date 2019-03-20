@@ -49,7 +49,7 @@ const Navigation = () => (
                                 </li>
                             </ul>
                         </li>
-                        <MenuItem href='/sticker/create' icon='certificate' linkTitle='Stickers'/>
+                        <MenuItem href='/stickers' icon='certificate' linkTitle='Stickers'/>
                         <MenuItem href='/tags' icon='hashtag' linkTitle='Tags'/>
                         <MenuItem href='/categories' icon='tags' linkTitle='Categories'/>
                         <MenuItem href='/users' icon='users' linkTitle='Users'/>
@@ -86,7 +86,7 @@ const Navigation = () => (
                                 </li>
                             </ul>
                         </li>
-                        <MenuItem href='/sticker/create' icon='certificate' linkTitle='Stickers'/>
+                        <MenuItem href='/stickers' icon='certificate' linkTitle='Stickers'/>
                         <MenuItem href='/tags' icon='hashtag' linkTitle='Tags'/>
                         <MenuItem href='/categories' icon='tags' linkTitle='Categories'/>
                         <MenuItem href='/users' icon='users' linkTitle='Users'/>

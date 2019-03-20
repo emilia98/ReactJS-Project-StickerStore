@@ -6,14 +6,10 @@ const Tag = require('../models/Tag');
 module.exports = {
     getAll: async(req, res) => {
 
-        try {
-            let stickers = await Sticker.find();
-
-            res.json({data: stickers, msg: 'Successfully received all the stickers'});
-        } catch(err) {
-            console.log(err);
-            res.json({ msg: 'An error occurred while tring to get all the stickers!', hasError: true})
-        }
+       await getAllEntries(res, {});
+    },
+    getActive: async(req, res) => {
+        await getAllEntries(res, {isActive: true});
     },
     create: async (req, res) => {
         let files = req.files;
@@ -174,6 +170,49 @@ module.exports = {
        
 
       
+    },
+    changeActiveStatus: async(req, res) => {
+        let { id } = req.params;
+        let sticker = null;
+
+        if(!id) {
+            return res.json({ msg: 'Please, provide an id!', hasError: true});
+        }
+
+        try {
+            sticker = await Sticker.findById(id);
+        } catch(err) {
+            console.log(err);
+            return res.json({ msg: 'An error occurred while trying to get a sticker!', hasError: true});
+        }
+
+        if(!sticker) {
+            return res.json({ msg: 'This sticker does not exist!', hasError: true});
+        }
+
+        let isActive = sticker.isActive;
+
+        sticker.isActive = !isActive;
+
+        try {
+            let result = await sticker.save();
+            res.status(200).json( { msg: 'Successfully change status of the sticker!'});
+        } catch(err) {
+            console.log(err);
+            res.status(500).json( { msg: 'An error occurred while trying to change the status of a sticker!', hasError: true});
+        }
+    }
+}
+
+
+async function getAllEntries(res, obj) {
+    try {
+        let stickers = await Sticker.find(obj);
+
+        res.json({data: stickers, msg: 'Successfully received all the stickers'});
+    } catch(err) {
+        console.log(err);
+        res.json({msg: 'An error occurred while trying to get all the stickers!', hasError: true})
     }
 }
 

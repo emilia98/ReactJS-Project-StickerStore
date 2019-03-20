@@ -14,6 +14,7 @@ import EditCategory from './Category/Edit';
 
 import { NotificationManager } from 'react-notifications';
 import User from './User/User';
+import Sticker from './Sticker/Sticker';
 /*
     <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
 
@@ -53,6 +54,7 @@ class Admin extends Component {
                       <Route path='/category/create' component={CreateCategory}/>
                       <Route path='/tags' component={Tag}/>
                       <Route path='/users' component={User} />
+                      <Route path='/stickers' component={Sticker} />
                       <Route path='/tag/create' component={CreateTag}/>
                       <Route path='/tag/edit/:id' component={EditTag}/>
                       <Route path='/category/edit/:id' component={EditCategory}/>
